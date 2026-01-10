@@ -3,9 +3,9 @@
 	"name": "create-block/team-members",
 	"title": "Team Members",
 	"category": "media",
-	"icon": "admin-users",
+	"icon": "groups",
 	"description": "A custom Gutenberg block for displaying team members. Built as a learning project using modern WordPress block development practices.",
-	"keywords": ["Team", "Members", "Grid"],
+	"keywords": [ "Team", "Members", "Grid" ],
 	"supports": {
 		"html": false
 	},
