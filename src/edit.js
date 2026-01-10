@@ -5,7 +5,15 @@ import './editor.scss';
 export default function Edit() {
 	return (
 		<div { ...useBlockProps() }>
-			<InnerBlocks allowedBlocks={ [ 'create-block/team-member' ] } />
+			<InnerBlocks
+				allowedBlocks={ [ 'create-block/team-member' ] }
+				template={ [
+					[ 'create-block/team-member' ],
+					[ 'create-block/team-member' ],
+					[ 'create-block/team-member' ],
+				] }
+				templateLock="insert"
+			/>
 		</div>
 	);
 }
