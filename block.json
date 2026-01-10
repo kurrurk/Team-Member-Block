@@ -1,14 +1,15 @@
 {
 	"apiVersion": 2,
-	"name": "create-block/boilerplate",
-	"title": "Boilerplate",
-	"category": "widgets",
-	"icon": "smiley",
-	"description": "Example block written with ESNext standard and JSX support – build step required.",
+	"name": "create-block/team-members",
+	"title": "Team Members",
+	"category": "media",
+	"icon": "admin-users",
+	"description": "A custom Gutenberg block for displaying team members. Built as a learning project using modern WordPress block development practices.",
+	"keywords": ["Team", "Members", "Grid"],
 	"supports": {
 		"html": false
 	},
-	"textdomain": "boilerplate",
+	"textdomain": "team-members",
 	"editorScript": "file:./build/index.js",
 	"editorStyle": "file:./build/index.css",
 	"style": "file:./build/style-index.css"
