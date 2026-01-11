@@ -4,9 +4,11 @@ import {
 	RichText,
 	MediaPlaceholder,
 } from '@wordpress/block-editor';
+import { isBlobURL } from '@wordpress/blob';
+import { Spinner } from '@wordpress/components';
 
 export default function Edit( { attributes, setAttributes } ) {
-	const { name, bio } = attributes;
+	const { name, bio, url, alt } = attributes;
 
 	const onChangeName = ( newName ) => {
 		setAttributes( { name: newName } );
@@ -14,16 +16,33 @@ export default function Edit( { attributes, setAttributes } ) {
 	const onChangeBio = ( newBio ) => {
 		setAttributes( { bio: newBio } );
 	};
+	const onSelectImage = ( image ) => {
+		if ( ! image || ! image.url ) {
+			setAttributes( { url: undefined, id: undefined, alt: undefined } );
+		}
+		setAttributes( { url: image.url, id: image.id, alt: image.alt } );
+	};
 
 	return (
 		<div { ...useBlockProps() }>
+			{ url && (
+				<div
+					className={ `wp-block-blocks-course-team-member-img${
+						isBlobURL( url ) ? ' is-loading' : ''
+					}` }
+				>
+					<img src={ url } alt={ alt } />
+					{ isBlobURL( url ) && <Spinner /> }
+				</div>
+			) }
 			<MediaPlaceholder
 				icon="admin-users"
-				// onSelect={}
+				onSelect={ onSelectImage }
 				// onSelectURL={}
 				// onError={}
 				accept="image/"
 				allowedTypes={ [ 'image' ] }
+				disabledMediaButtons={ url }
 			/>
 			<RichText
 				placeholder={ __( 'Member Name', 'team-member' ) }
