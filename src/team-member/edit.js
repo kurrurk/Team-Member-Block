@@ -7,7 +7,7 @@ import {
 	MediaReplaceFlow,
 } from '@wordpress/block-editor';
 import { isBlobURL, revokeBlobURL } from '@wordpress/blob';
-import { Spinner, withNotices } from '@wordpress/components';
+import { Spinner, withNotices, ToolbarButton } from '@wordpress/components';
 import { useEffect, useState } from '@wordpress/element';
 
 function Edit( { attributes, setAttributes, noticeOperations, noticeUI } ) {
@@ -33,6 +33,13 @@ function Edit( { attributes, setAttributes, noticeOperations, noticeUI } ) {
 		noticeOperations.removeAllNotices();
 		noticeOperations.createErrorNotice( message );
 	};
+	const removeImege = () => {
+		setAttributes( {
+			url: undefined,
+			alt: '',
+			id: undefined,
+		} );
+	};
 	useEffect( () => {
 		if ( ! id && isBlobURL( url ) ) {
 			setAttributes( {
@@ -51,18 +58,23 @@ function Edit( { attributes, setAttributes, noticeOperations, noticeUI } ) {
 	}, [ url ] );
 	return (
 		<>
-			<BlockControls group="inline">
-				<MediaReplaceFlow
-					name={ __( 'Replace Image', 'team-members' ) }
-					onSelect={ onSelectImage }
-					onSelectURL={ onSelectUrl }
-					onError={ onUpLoadError }
-					accept="image/"
-					allowedTypes={ [ 'image' ] }
-					mediaId={ id }
-					mediaURL={ url }
-				/>
-			</BlockControls>
+			{ url && (
+				<BlockControls group="inline">
+					<MediaReplaceFlow
+						name={ __( 'Replace Image', 'team-members' ) }
+						onSelect={ onSelectImage }
+						onSelectURL={ onSelectUrl }
+						onError={ onUpLoadError }
+						accept="image/"
+						allowedTypes={ [ 'image' ] }
+						mediaId={ id }
+						mediaURL={ url }
+					/>
+					<ToolbarButton onClick={ removeImege }>
+						{ __( 'Remove Image', 'team-members' ) }
+					</ToolbarButton>
+				</BlockControls>
+			) }
 			<div { ...useBlockProps() }>
 				{ url && (
 					<div
